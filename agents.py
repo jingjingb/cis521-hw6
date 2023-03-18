@@ -32,7 +32,7 @@ class ValueIterationAgent:
         QValue = 0.0
         for Tstate, prob in transition_probs.items():
             if Tstate in self.values:
-                QValue += prob * (self.game.get_reward(state, action, Tstate) \
+                QValue += prob * (self.game.get_reward(state, action, Tstate)
                                   + self.discount * self.get_value(Tstate))
             else:
                 QValue += prob * (self.game.get_reward(state, action, Tstate))
@@ -70,14 +70,14 @@ class PolicyIterationAgent(ValueIterationAgent):
     """Implement Policy Iteration Agent.
 
     The only difference between policy iteration and value iteration is at
-    their iteration method. However, 
+    their iteration method. However,
     if you need to implement helper function or
     override ValueIterationAgent's methods, you can add them as well.
     """
 
     def iterate(self):
         """Run single policy iteration.
-        Fix current policy, iterate state values 
+        Fix current policy, iterate state values
         V(s) until |V_{k+1}(s) - V_k(s)| < ε
         """
         epsilon = 1e-6
@@ -89,8 +89,8 @@ class PolicyIterationAgent(ValueIterationAgent):
                 next_values[state] = self.get_q_value(state, best_policy)
             need_iter = False
             for state in self.values:
-                abs_v = abs(self.values.get(state) - next_values.get(state)
-                if(abs_v) > epsilon):
+                abs_v = abs(self.values.get(state) - next_values.get(state))
+                if (abs_v > epsilon):
                     need_iter = True
                     break
             self.values = next_values
