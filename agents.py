@@ -2,6 +2,7 @@
 import copy
 student_name = "Jingjing Bai"
 
+
 # 1. Value Iteration
 class ValueIterationAgent:
     """Implement Value Iteration Agent using Bellman Equations."""
@@ -31,7 +32,8 @@ class ValueIterationAgent:
         QValue = 0.0
         for Tstate, prob in transition_probs.items():
             if Tstate in self.values:
-                QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.get_value(Tstate))
+                QValue += prob * (self.game.get_reward(state, action, Tstate) \
+                                  + self.discount * self.get_value(Tstate))
             else:
                 QValue += prob * (self.game.get_reward(state, action, Tstate))
         return QValue
@@ -49,7 +51,6 @@ class ValueIterationAgent:
             for action in actions:
                 QValues[action] = self.get_q_value(state, action)
             return max(QValues, key=QValues.get)
-            
 
     def iterate(self):
         """Run single value iteration using Bellman equation:
@@ -63,18 +64,21 @@ class ValueIterationAgent:
             next_values[state] = self.get_q_value(state, best_policy)
         self.values = next_values
 
+
 # 2. Policy Iteration
 class PolicyIterationAgent(ValueIterationAgent):
     """Implement Policy Iteration Agent.
 
     The only difference between policy iteration and value iteration is at
-    their iteration method. However, if you need to implement helper function or
+    their iteration method. However, 
+    if you need to implement helper function or
     override ValueIterationAgent's methods, you can add them as well.
     """
 
     def iterate(self):
         """Run single policy iteration.
-        Fix current policy, iterate state values V(s) until |V_{k+1}(s) - V_k(s)| < ε
+        Fix current policy, iterate state values 
+        V(s) until |V_{k+1}(s) - V_k(s)| < ε
         """
         epsilon = 1e-6
         import copy
@@ -85,18 +89,21 @@ class PolicyIterationAgent(ValueIterationAgent):
                 next_values[state] = self.get_q_value(state, best_policy)
             need_iter = False
             for state in self.values:
-                if(abs(self.values.get(state) - next_values.get(state)) > epsilon):
+                abs_v = abs(self.values.get(state) - next_values.get(state)
+                if(abs_v) > epsilon):
                     need_iter = True
                     break
             self.values = next_values
             if not need_iter:
                 break
 
+
 # 3. Bridge Crossing Analysis
 def question_3():
     discount = 0.9
     noise = 0.01
     return discount, noise
+
 
 # 4. Policies
 def question_4a():
@@ -137,6 +144,7 @@ def question_4e():
     return discount, noise, living_reward
     # If not possible, return 'NOT POSSIBLE'
 
+
 # 5. Feedback
 # Just an approximation is fine.
 feedback_question_1 = 4
@@ -146,5 +154,5 @@ understand more complex game
 """
 
 feedback_question_3 = """
-find parameter by infering from demo 
+find parameter by infering from demo
 """
