@@ -85,8 +85,23 @@ class PolicyIterationAgent(ValueIterationAgent):
         Fix current policy, iterate state values V(s) until |V_{k+1}(s) - V_k(s)| < ε
         """
         epsilon = 1e-6
+        import copy
+        while True:
+            next_values = copy.deepcopy(self.values)
+            for state in self.values:
+                best_policy = self.get_best_policy(state)
+                next_values[state] = self.get_q_value(state, best_policy) #update for each state
+            # check if stop
+            need_iter = False
+            for state in self.values:
+                if(self.values.get(state) - next_values.get(state) > epsilon):
+                    need_iter = True
+                    break
+            self.values = next_values #copy back the new values
+            if not need_iter:
+                break
 
-        ...  # TODO
+        
 
 # 3. Bridge Crossing Analysis
 def question_3():
