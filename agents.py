@@ -1,6 +1,7 @@
 # Include your imports here, if any are used.
-
+import copy
 student_name = "Jingjing Bai"
+
 # 1. Value Iteration
 class ValueIterationAgent:
     """Implement Value Iteration Agent using Bellman Equations."""
@@ -12,7 +13,6 @@ class ValueIterationAgent:
         self.game = game
         self.discount = discount
         self.values = {}
-        #print(game.states)
         for state in game.states:
             self.values[state] = 0
 
@@ -30,16 +30,9 @@ class ValueIterationAgent:
         transition_probs = self.game.get_transitions(state, action)
         QValue = 0.0
         for Tstate, prob in transition_probs.items():
-            #print("Tstate", Tstate)
-            #try:
-            #    self.get_value(Tstate)
-            #except:
-            #    print("error, current state is ", state)
-            #    print("error, next action of current state is",self.game.get_actions(state))
             if Tstate in self.values:
                 QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.get_value(Tstate))
             else:
-            #terminal state
                 QValue += prob * (self.game.get_reward(state, action, Tstate))
         return QValue
 
@@ -55,7 +48,6 @@ class ValueIterationAgent:
             actions = self.game.get_actions(state)
             for action in actions:
                 QValues[action] = self.get_q_value(state, action)
-
             return max(QValues, key=QValues.get)
             
 
@@ -68,8 +60,8 @@ class ValueIterationAgent:
         next_values = copy.deepcopy(self.values)
         for state in self.values:
             best_policy = self.get_best_policy(state)
-            next_values[state] = self.get_q_value(state, best_policy) #update for each state
-        self.values = next_values #copy back the new values
+            next_values[state] = self.get_q_value(state, best_policy)
+        self.values = next_values
 
 # 2. Policy Iteration
 class PolicyIterationAgent(ValueIterationAgent):
@@ -90,14 +82,13 @@ class PolicyIterationAgent(ValueIterationAgent):
             next_values = copy.deepcopy(self.values)
             for state in self.values:
                 best_policy = self.get_best_policy(state)
-                next_values[state] = self.get_q_value(state, best_policy) #update for each state
-            # check if stop
+                next_values[state] = self.get_q_value(state, best_policy)
             need_iter = False
             for state in self.values:
                 if(abs(self.values.get(state) - next_values.get(state)) > epsilon):
                     need_iter = True
                     break
-            self.values = next_values #copy back the new values
+            self.values = next_values
             if not need_iter:
                 break
 
