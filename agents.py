@@ -12,6 +12,7 @@ class ValueIterationAgent:
         self.game = game
         self.discount = discount
         self.values = {}
+        #print(game.states)
         for state in game.states:
             self.values[state] = 0
 
@@ -28,10 +29,18 @@ class ValueIterationAgent:
         """
         transition_probs = self.game.get_transitions(state, action)
         QValue = 0.0
-        for transition in transition_probs:
-            Tstate, prob = transition
-            QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.getValue(Tstate))
-
+        for Tstate, prob in transition_probs.items():
+            #print("Tstate", Tstate)
+            #try:
+            #    self.get_value(Tstate)
+            #except:
+            #    print("error, current state is ", state)
+            #    print("error, next action of current state is",self.game.get_actions(state))
+            if Tstate in self.values:
+                QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.get_value(Tstate))
+            else:
+            #terminal state
+                QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.game.get_reward(state, action,Tstate))
         return QValue
 
     def get_best_policy(self, state):
@@ -39,14 +48,27 @@ class ValueIterationAgent:
         Policy should be extracted from Q-state values using policy extraction:
         π*(s) = argmax_a Q*(s,a)
         """
-        return None  # TODO
+        if state not in self.values:
+            return None
+        else:
+            QValues = {}
+            actions = self.game.get_actions(state)
+            for action in actions:
+                QValues[action] = self.get_q_value(state, action)
+
+            return QValues.get(max(QValues, key=QValues.get))
+            
 
     def iterate(self):
         """Run single value iteration using Bellman equation:
         V_{k+1}(s) = max_a Q*(s,a)
         Then update values: V*(s) = V_{k+1}(s)
         """
-        ...  # TODO
+        next_values = self.values.copy()
+        for state in self.values:
+            best_policy = self.get_best_policy(state)
+            next_values[state] = best_policy #update for each state
+        self.values = next_values.copy() #copy back the new values
 
 # 2. Policy Iteration
 class PolicyIterationAgent(ValueIterationAgent):
