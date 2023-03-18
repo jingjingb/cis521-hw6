@@ -56,7 +56,7 @@ class ValueIterationAgent:
             for action in actions:
                 QValues[action] = self.get_q_value(state, action)
 
-            return QValues.get(max(QValues, key=QValues.get))
+            return max(QValues, key=QValues.get)
             
 
     def iterate(self):
