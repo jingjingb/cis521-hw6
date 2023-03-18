@@ -149,16 +149,12 @@ def question_4e():
 
 # 5. Feedback
 # Just an approximation is fine.
-feedback_question_1 = 0
+feedback_question_1 = 4
 
 feedback_question_2 = """
-Type your response here.
-Your response may span multiple lines.
-Do not include these instructions in your response.
+find parameter by infering from demo 
 """
 
 feedback_question_3 = """
-Type your response here.
-Your response may span multiple lines.
-Do not include these instructions in your response.
+understand more complex game
 """
