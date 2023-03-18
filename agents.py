@@ -56,7 +56,7 @@ class ValueIterationAgent:
             for action in actions:
                 QValues[action] = self.get_q_value(state, action)
 
-            return QValues.get(max(QValues, key=QValues.get))
+            return max(QValues, key=QValues.get)
             
 
     def iterate(self):
@@ -68,7 +68,7 @@ class ValueIterationAgent:
         next_values = copy.deepcopy(self.values)
         for state in self.values:
             best_policy = self.get_best_policy(state)
-            next_values[state] = best_policy #update for each state
+            next_values[state] = self.get_q_value(state, best_policy) #update for each state
         self.values = next_values #copy back the new values
 
 # 2. Policy Iteration
