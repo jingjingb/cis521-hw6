@@ -101,19 +101,17 @@ class PolicyIterationAgent(ValueIterationAgent):
             if not need_iter:
                 break
 
-        
-
 # 3. Bridge Crossing Analysis
 def question_3():
-    discount = ...
-    noise = ...
+    discount = 0.9
+    noise = 0.01
     return discount, noise
 
 # 4. Policies
 def question_4a():
-    discount = ...
-    noise = ...
-    living_reward = ...
+    discount = 0.2
+    noise = 0
+    living_reward = 0
     return discount, noise, living_reward
     # If not possible, return 'NOT POSSIBLE'
 
@@ -127,25 +125,25 @@ def question_4b():
 
 
 def question_4c():
-    discount = ...
-    noise = ...
-    living_reward = ...
+    discount = 0.9
+    noise = 0.01
+    living_reward = 0
     return discount, noise, living_reward
     # If not possible, return 'NOT POSSIBLE'
 
 
 def question_4d():
-    discount = ...
-    noise = ...
-    living_reward = ...
+    discount = 0.5
+    noise = 0.2
+    living_reward = 2
     return discount, noise, living_reward
     # If not possible, return 'NOT POSSIBLE'
 
 
 def question_4e():
-    discount = ...
-    noise = ...
-    living_reward = ...
+    discount = 0.9
+    noise = 0.9
+    living_reward = 3
     return discount, noise, living_reward
     # If not possible, return 'NOT POSSIBLE'
 
