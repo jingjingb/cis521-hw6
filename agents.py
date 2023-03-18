@@ -40,7 +40,7 @@ class ValueIterationAgent:
                 QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.get_value(Tstate))
             else:
             #terminal state
-                QValue += prob * (self.game.get_reward(state, action, Tstate) + self.discount * self.game.get_reward(state, action,Tstate))
+                QValue += prob * (self.game.get_reward(state, action, Tstate)
         return QValue
 
     def get_best_policy(self, state):
