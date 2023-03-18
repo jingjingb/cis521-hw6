@@ -94,7 +94,7 @@ class PolicyIterationAgent(ValueIterationAgent):
             # check if stop
             need_iter = False
             for state in self.values:
-                if(self.values.get(state) - next_values.get(state) > epsilon):
+                if(abs(self.values.get(state) - next_values.get(state)) > epsilon):
                     need_iter = True
                     break
             self.values = next_values #copy back the new values
