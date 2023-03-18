@@ -152,9 +152,9 @@ def question_4e():
 feedback_question_1 = 4
 
 feedback_question_2 = """
-find parameter by infering from demo 
+understand more complex game
 """
 
 feedback_question_3 = """
-understand more complex game
+find parameter by infering from demo 
 """
