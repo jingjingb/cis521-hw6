@@ -115,10 +115,10 @@ def question_4a():
 
 
 def question_4b():
-    discount = 0.5
-    noise = 0.01
-    living_reward = 1
-    return 'NOT POSSIBLE'
+    discount = 0.2
+    noise = 0.2
+    living_reward = 0.2
+    return discount, noise, living_reward
 
 
 def question_4c():
